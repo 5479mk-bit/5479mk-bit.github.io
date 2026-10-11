@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok Authorization</title>
+<style>
+:root{ --bg:#faf9f7; --fg:#1c1b19; --muted:#6b6660; --accent:#8a5a3b; --rule:#e7e3dd; }
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#171614; --fg:#ece9e3; --muted:#a6a097; --accent:#d79a6e; --rule:#34322d; color-scheme: dark; }
+}
+body{
+  background:var(--bg); color:var(--fg); margin:0;
+  font-family:"Inter",system-ui,sans-serif; line-height:1.6;
+  display:flex; min-height:100vh; align-items:center; justify-content:center;
+}
+.wrap{max-width:560px; margin:0 auto; padding:24px 20px;}
+h1{font-size:20px; margin:0 0 16px;}
+code{
+  display:block; word-break:break-all; background:var(--rule); padding:14px 16px;
+  border-radius:8px; font-size:14px; margin:12px 0;
+}
+button{
+  font-family:inherit; font-size:14px; padding:10px 18px; border-radius:8px;
+  border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer;
+}
+p{color:var(--muted); font-size:14px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Authorization code</h1>
+  <p>Copy this value and paste it back into the terminal script.</p>
+  <code id="code">(reading URL…)</code>
+  <button id="copy">Copy</button>
+</div>
+<script>
+  var params = new URLSearchParams(location.search);
+  var code = params.get("code") || "(no code found in URL)";
+  document.getElementById("code").textContent = code;
+  document.getElementById("copy").addEventListener("click", function () {
+    try {
+      navigator.clipboard.writeText(code);
+      this.textContent = "Copied";
+    } catch (e) {}
+  });
+</script>
+</body>
+</html>
